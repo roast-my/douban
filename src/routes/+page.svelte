@@ -123,7 +123,16 @@
       clearInterval(ingestionInterval);
       scannedCount = 0; // Reset for actual scan
 
-      if (!roastRes.ok) throw new Error('AI 分析失败');
+      if (!roastRes.ok) {
+        let errorMessage = 'AI 分析失败';
+        try {
+          const errData = await roastRes.json();
+          if (errData.message) errorMessage = errData.message;
+        } catch (e) {
+          // ignore json parse error
+        }
+        throw new Error(errorMessage);
+      }
       const roastData = await roastRes.json();
 
       // Populate analysis map

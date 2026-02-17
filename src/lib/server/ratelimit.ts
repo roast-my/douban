@@ -43,7 +43,7 @@ export async function checkRateLimit(
       return new Response(
         JSON.stringify({
           error: 'Rate limit exceeded',
-          message: `You have reached the daily limit of ${ limitCount } requests.`
+          message: '请求太频繁啦，请休息一下，明天再试吧'
         }),
         {
           status: 429,
