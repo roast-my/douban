@@ -3,6 +3,18 @@
 
 	let { result } = $props();
 
+    function getDiagnosisRate(seed: string) {
+        let hash = 0;
+        for (let i = 0; i < seed.length; i++) {
+            hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+            hash |= 0;
+        }
+        const random = (Math.abs(hash) % 1000) / 1000;
+        return (90 + random * 9.9).toFixed(1);
+    }
+
+    let diagnosisRate = $derived(getDiagnosisRate(result.roast || ''));
+
 	// Radar Chart Logic
 	const axes = ['文艺', '现充', '遗老', '阴暗', '死宅'];
 	const keys = ['pretentiousness', 'mainstream', 'nostalgia', 'darkness', 'geekiness'];
@@ -67,7 +79,7 @@
 			</div>
 			<div class="text-right">
 				<span class="text-xs text-[#007722]/50 block">确诊率</span>
-				<span class="text-xl font-bold text-[#007722]">99.9%</span>
+                <span class="text-xl font-bold text-[#007722]">{diagnosisRate}%</span>
 			</div>
 		</header>
 
@@ -142,7 +154,7 @@
 			<div class="absolute -right-1 -bottom-4 text-4xl text-[#007722] opacity-20 font-serif">"</div>
 		</div>
 
-		<footer class="export-ignore flex items-center justify-center gap-4 pt-4 mt-8">
+		<footer class="export-ignore flex items-center justify-center gap-4 pt-4 mt-4">
             <button 
                 onclick={() => window.location.reload()}
                 class="px-6 py-2 bg-[#007722]/10 hover:bg-[#007722]/20 text-[#007722] font-bold uppercase tracking-wider text-sm transition-colors rounded-sm"
