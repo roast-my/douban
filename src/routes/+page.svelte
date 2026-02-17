@@ -148,6 +148,24 @@
 
       // 3. Play "Scanning" Animation (With Data)
       for (const item of itemsToScan) {
+        // Random Sampling Logic
+        if (itemsToScan.length > 50) {
+           const hasAnalysis = analysisMap.has(item.title);
+           const isExtremeRating = (item.rating !== null && (item.rating <= 2 || item.rating === 5));
+           
+           if (!hasAnalysis && !isExtremeRating) {
+             // Calculate skip probability: 0.5 at 50 items, up to 0.8 at 300+ items
+             const progress = Math.min(1, (itemsToScan.length - 50) / 250);
+             const skipProb = 0.5 + progress * 0.3;
+             
+             if (Math.random() < skipProb) {
+               // Skip this item (but count it for progress)
+               scannedCount++;
+               continue;
+             }
+           }
+        }
+
         currentItem = item;
         scannedCount++;
 
