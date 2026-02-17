@@ -4,8 +4,8 @@
 	let { result } = $props();
 
 	// Radar Chart Logic
-	const axes = ['文艺', '大众', '猎奇', '情感', '二次元'];
-	const keys = ['artistic', 'mainstream', 'niche', 'emotional', 'acg'];
+	const axes = ['文艺', '现充', '遗老', '阴暗', '死宅'];
+	const keys = ['pretentiousness', 'mainstream', 'nostalgia', 'darkness', 'geekiness'];
 	
 	const radius = 80;
 	const center = 100;
