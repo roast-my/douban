@@ -25,10 +25,9 @@
 	},
 	"dependencies": {
 		"@google/generative-ai": "^0.24.1",
-		"@types/cheerio": "^1.0.0",
 		"@upstash/ratelimit": "^2.0.8",
 		"@upstash/redis": "^1.36.2",
-		"cheerio": "^1.2.0",
+		"@vercel/analytics": "^1.6.1",
 		"html-to-image": "^1.11.13"
 	}
 }
