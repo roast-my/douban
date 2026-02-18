@@ -67,11 +67,11 @@
       title: 'darkness (致郁度 / 阴暗值)',
       meaning: '内容的情绪色彩。包括恐怖、惊悚、悲剧、致郁系、重金属、犯罪。',
       high: '《熔炉》、伊藤润二、太宰治、后摇。',
-      low: '喜剧、合家欢、励志书、正能量。',
+      low: '喜剧、合家欢、励志书、大型连载巨制、正能量。',
     },
     {
       title: 'geekiness (死宅值 / 浓度)',
-      meaning: '替代原来的 acg，但范围更广。包含科幻、奇幻、动漫、游戏改编、硬核推理。',
+      meaning: '泛 acg，但范围更广。包含科幻、奇幻、魔幻、动漫、游戏改编、硬核推理。',
       high: '赛博朋克、高达、魔戒、克苏鲁、硬科幻。',
       low: '现实主义题材、生活剧、职场书。',
     },
@@ -277,7 +277,7 @@
         </div>
 
         <!-- Tags (Right on Desktop) -->
-        <div class="flex flex-wrap md:flex-col justify-center md:justify-center gap-3 max-w-[320px]">
+        <div class="flex flex-wrap justify-center md:justify-center gap-3 max-w-[320px]">
           {#each result.tags as tag}
             <span
               class="px-3 py-1.5 flex items-center justify-center bg-[#007722]/5 border border-[#007722]/30 text-xs text-[#007722] rounded-full uppercase tracking-wider font-bold whitespace-nowrap"
@@ -290,11 +290,11 @@
 
       <!-- Roast Text -->
       <div class="relative px-2 -mx-3 md:mx-0">
-        <div class="absolute -left-1 -top-4 text-4xl text-[#007722] opacity-20 font-serif">"</div>
+        <div class="absolute -left-1 -top-4 text-4xl text-[#007722] opacity-20 font-serif rotate-15">"</div>
         <p class="leading-relaxed text-slate-600 italic text-center font-serif text-sm md:text-base">
           {result.roast}
         </p>
-      <div class="absolute -right-1 -bottom-4 text-4xl text-[#007722] opacity-20 font-serif">"</div>
+      <div class="absolute -right-1 -bottom-4 text-4xl text-[#007722] opacity-20 font-serif rotate-15">"</div>
       </div>
 
       <!-- Analysis Log (Collapsible) -->

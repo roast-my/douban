@@ -4,7 +4,7 @@ import { Redis } from '@upstash/redis';
 import type { RequestEvent } from '@sveltejs/kit';
 
 export const LIMIT_CONFIG = {
-  MAX_REQUESTS_PER_DAY: 5,
+  MAX_REQUESTS_PER_DAY: 10,
 };
 
 const redis = new Redis({
