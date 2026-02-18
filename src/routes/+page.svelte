@@ -286,7 +286,7 @@
               豆瓣画像
             </div>
             <img
-              src="/douban.jpg"
+              src="/douban.webp"
               alt="Douban Life"
               class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               onerror={(e) => ((e.currentTarget as HTMLImageElement).style.display = 'none')}
