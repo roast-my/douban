@@ -38,21 +38,26 @@ export async function checkRateLimit(
     const today = new Date().toISOString().split('T')[0];
     const identifier = `${ clientIp }:${ today }`;
 
-    const { success, limit, remaining } = await ratelimit.limit(identifier);
-    if (!success) {
-      return new Response(
-        JSON.stringify({
-          error: 'Rate limit exceeded',
-          message: '请求太频繁啦，请休息一下，明天再试吧'
-        }),
-        {
-          status: 429,
-          headers: {
-            'Content-Type': 'application/json',
-            'X-RateLimit-Limit': limit.toString(),
-            'X-RateLimit-Remaining': remaining.toString()
-          }
-        });
+    try {
+      const { success, limit, remaining } = await ratelimit.limit(identifier);
+      if (!success) {
+        return new Response(
+          JSON.stringify({
+            error: 'Rate limit exceeded',
+            message: '请求太频繁啦，请休息一下，明天再试吧'
+          }),
+          {
+            status: 429,
+            headers: {
+              'Content-Type': 'application/json',
+              'X-RateLimit-Limit': limit.toString(),
+              'X-RateLimit-Remaining': remaining.toString()
+            }
+          });
+      }
+    } catch (err) {
+      console.error('[RateLimit] Redis Error (Allowing Request):', err);
+      return null;
     }
   }
 

@@ -42,7 +42,7 @@ const ARCHETYPE_DEFINITIONS = `
 * **Tag：** #纸片人老公 #现实过敏 #萌即正义
 
 #### 7. 电子榨菜批发商 (The Digital Pickle Wholesaler)
-* **触发条件：** 下饭剧、情景喜剧（武林外传/老友记/甄嬛传）反复刷，观看次数极多。
+* **触发条件：** 下饭剧、情景喜剧（武林外传/老友记/甄嬛传/康熙来了）反复刷，观看次数极多。
 * **毒舌判词：** “你是把电视剧当背景白噪音听的吧？这几部剧被你盘得都包浆了。你不是在看剧，你是在寻求安全感。只要台词还是熟悉的，生活就没有失控。”
 * **Tag：** #甄学家 #吃饭必备 #重复狂魔
 
@@ -82,6 +82,15 @@ export const POST = withRateLimit(async ({ request }: { request: Request }) => {
     throw error(400, 'Invalid data');
   }
 
+  const interestes_ = interests.map((item: any) => ({
+    title: item.title,
+    rating: item.rating?.value,
+    tags: item.tags,
+    comment: item.comment,
+    create_time: item.create_time,
+    year: item.year
+  }));
+
   const prompt = `
     You are a mean, cynical, yet humorous pop culture critic.
     Your style is "Poisonous Tongue, Warm Heart" (毒舌心热) - you roast people not just to be mean, but because you see through their facade. 
@@ -89,23 +98,20 @@ export const POST = withRateLimit(async ({ request }: { request: Request }) => {
 
     Analyze the following list of user records (movies/books/music) from Douban.
     
-        Analyze this user's taste based on their Douban ${ interests[0]?.type || 'interests' } history:
-        ${ JSON.stringify(interests) }
+        Analyze this user's taste based on their Douban interests history:
+        ${JSON.stringify(interestes_)}
         
         Based on the definitions below, identify the user's specific archetype.
         
-        ${ ARCHETYPE_DEFINITIONS }
+        ${ARCHETYPE_DEFINITIONS}
 
         **IMPORTANT Archetype Selection Rules:**
-        - Do NOT default to "Schizophrenic Omnivore" just because the user has diverse tastes. Most people watch different things.
-        - "Schizophrenic Omnivore" is ONLY for EXTREME contrasts (High Art vs. Low Trash). 
-        - If they are just a normal person watching popular things + some anime, they are likely "Normie Mimic".
-        - If the user rates multiple low-quality dramas (avg rating < 6.0) with 5 stars, and the cast overlaps (same actor), classify as "The Fandom Guardian".
-        - If the user's book list is dominated by "Business", "Management", "Psychology" (pop-psych), classify as "The Self-Help Junkie".
+        - **CREATIVE MODE ENABLED:** If the user's taste is distinct and funny but doesn't fit the above 12 archetypes perfectly, **PLEASE INVENT A NEW ONE**.
+        - The new archetype name must be 4-6 Chinese characters, witty, mean, and specific (e.g. "烂片考古学家", "纯爱战神", "午夜emo冠军").
 
         Output a JSON object with:
         1. "archetype": A creative, slightly mean 4-word title (e.g. "文艺复兴守门员").
-        2. "roast": A vicious, sharp, and humorous critique of their taste. **CRITICAL: The roast must be at least 300 Chinese characters long.** Do not be short. Deeply analyze their specific choices (high rating vs low rating). Mention specific titles if possible to roast them.
+        2. "roast": A vicious, sharp, and humorous critique of their taste. Do not be short. Deeply analyze their specific choices (high rating vs low rating). Mention specific titles if possible to roast them.
         3. "tags": 3-4 short, punchy tags. **IMPORTANT:** Do not feel limited to the example tags in the definitions. You are ENCOURAGED to generate creative, specific tags based on the user's unique list (e.g. "#Nolan_Fanboy", "#Ghibli_Addict").
         4. "scores": specific scores (0-100) for the 5-axis psychological profile: "pretentiousness", "mainstream", "nostalgia", "darkness", "geekiness".
         5. "item_analysis": An array of objects, selecting the 30 most noteworthy items. **Prioritize items where the user wrote a comment or gave a conflicting rating.** 
@@ -187,7 +193,7 @@ export const POST = withRateLimit(async ({ request }: { request: Request }) => {
 
     return json({
       ...finalJSON,
-      _model: llmResult.model // Optional: pass model name to frontend for debug/display
+      model: llmResult.model
     });
   } catch (e) {
     console.error('Gemini Roast Error:', e);
