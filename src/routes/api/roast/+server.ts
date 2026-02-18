@@ -1,4 +1,5 @@
 import { json, error } from '@sveltejs/kit';
+import { jsonrepair } from 'jsonrepair';
 import { generateRoast } from '$lib/server/llm';
 import { withRateLimit } from '$lib/server/ratelimit';
 import type { RequestHandler } from './$types';
@@ -101,7 +102,7 @@ export const POST = withRateLimit(async ({ request }: { request: Request }) => {
 
         Output a JSON object with:
         1. "archetype": A creative, slightly mean 4-word title (e.g. "文艺复兴守门员").
-        2. "roast": A vicious, sharp, and humorous critique of their taste. **CRITICAL: The roast must be at least 200 Chinese characters long.** Do not be short. Deeply analyze their specific choices (high rating vs low rating). Mention specific titles if possible to roast them.
+        2. "roast": A vicious, sharp, and humorous critique of their taste. **CRITICAL: The roast must be at least 250 Chinese characters long.** Do not be short. Deeply analyze their specific choices (high rating vs low rating). Mention specific titles if possible to roast them.
         3. "tags": 3-4 short, punchy tags. **IMPORTANT:** Do not feel limited to the example tags in the definitions. You are ENCOURAGED to generate creative, specific tags based on the user's unique list (e.g. "#Nolan_Fanboy", "#Ghibli_Addict").
         4. "scores": specific scores (0-100) for the 5-axis psychological profile: "pretentiousness", "mainstream", "nostalgia", "darkness", "geekiness".
         5. "item_analysis": An array of objects, selecting the 30 most noteworthy items. **Prioritize items where the user wrote a comment or gave a conflicting rating.** 
@@ -170,12 +171,23 @@ export const POST = withRateLimit(async ({ request }: { request: Request }) => {
           }
         }
 
+    let finalJSON;
+    try {
+      finalJSON = JSON.parse(jsonrepair(extractedJSON));
+    } catch (e) {
+      // Fallback: Try to fix "Shell-style" comments (#) which some LLMs hallucinate
+      // We only do this if normal repair fails, to avoid corrupting valid strings containing #
+      console.warn('JSON repair failed, trying aggressive comment cleanup...');
+      const patched = extractedJSON.replace(/, #/g, ', //');
+      finalJSON = JSON.parse(jsonrepair(patched));
+    }
+
     return json({
-      ...JSON.parse(extractedJSON),
+      ...finalJSON,
       _model: llmResult.model // Optional: pass model name to frontend for debug/display
     });
 	} catch (e) {
 		console.error('Gemini Roast Error:', e);
-		throw error(500, 'Failed to generate roast', e);
+		throw error(500, 'Failed to generate roast');
 	}
 });

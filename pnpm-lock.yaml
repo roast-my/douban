@@ -23,6 +23,9 @@ importers:
       html-to-image:
         specifier: ^1.11.13
         version: 1.11.13
+      jsonrepair:
+        specifier: ^3.13.2
+        version: 3.13.2
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: ^7.0.0
@@ -880,6 +883,10 @@ packages:
 
   jiti@2.6.1:
     resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==}
+    hasBin: true
+
+  jsonrepair@3.13.2:
+    resolution: {integrity: sha512-Leuly0nbM4R+S5SVJk3VHfw1oxnlEK9KygdZvfUtEtTawNDyzB4qa1xWTmFt1aeoA7sXZkVTRuIixJ8bAvqVUg==}
     hasBin: true
 
   kleur@4.1.5:
@@ -1781,6 +1788,8 @@ snapshots:
       '@isaacs/cliui': 9.0.0
 
   jiti@2.6.1: {}
+
+  jsonrepair@3.13.2: {}
 
   kleur@4.1.5: {}
 

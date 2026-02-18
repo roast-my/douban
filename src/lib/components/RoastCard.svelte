@@ -174,6 +174,7 @@
                 y={parseFloat(getPoint(i, 115).split(',')[1])}
                 text-anchor="middle"
                 dominant-baseline="middle"
+                fill="#007722"
                 class="text-[10px] fill-[#007722] font-bold cursor-help hover:opacity-75 transition-opacity"
                 onmouseenter={() => (hoveredAxisIndex = i)}
                 onmouseleave={() => (hoveredAxisIndex = null)}
