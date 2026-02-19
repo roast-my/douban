@@ -325,7 +325,14 @@
               <div class="space-y-3 mt-4 animate-in slide-in-from-top-2 duration-300">
                 {#each result.item_analysis as item}
                   <div class="text-xs text-slate-600 leading-relaxed font-mono bg-[#f9f9f9] p-2 rounded border border-gray-100">
-                    <div class="font-bold text-[#007722]/80 mb-1">《{item.title}》</div>
+                    <div class="flex items-baseline justify-between gap-2 mb-1">
+                      <div class="font-bold text-[#007722]/80 shrink-0">《{item.title}》</div>
+                      {#if item.user_comment}
+                        <div class="text-[10px] text-gray-400 line-clamp-2 leading-tight text-right italic font-serif opacity-80">
+                          {item.user_comment}
+                        </div>
+                      {/if}
+                    </div>
                     <div class="pl-1 sm:pl-2 sm:border-l-2 sm:border-[#007722]/20 text-slate-500">
                       [AI 洞察] {item.thought}
                     </div>

@@ -148,8 +148,17 @@
 
       // Populate analysis map
       if (roastData.item_analysis) {
+        // Build map for faster lookup (though itemsToScan is usually small < 30)
+        const commentMap = new Map();
+        itemsToScan.forEach((i: any) => {
+          if (i.comment) commentMap.set(i.title, i.comment);
+        });
+
         roastData.item_analysis.forEach((analysis: any) => {
           analysisMap.set(analysis.title, analysis.thought);
+          if (commentMap.has(analysis.title)) {
+            analysis.user_comment = commentMap.get(analysis.title);
+          }
         });
         systemLogs = [...systemLogs, {id: logCounter++, text: '侧写向量已同步. 开始回放分析.'}];
       }
@@ -497,8 +506,9 @@
     {/if}
   </div>
 
-  <div class="absolute bottom-4 left-0 w-full text-center z-20 pointer-events-none select-none">
-    <p class="text-[10px] text-[#007722]/50 font-mono">
+  <div class="absolute bottom-4 left-0 w-full text-center select-none ">
+    <p class="text-[10px] text-[#007722]/50 font-mono mx-6">
+      Designed by <a target="_blank" rel="noopener noreferrer" href="https://github.com/anig1scur">Yanxin</a> and made with Gemini.
       内容由 AI 生成，仅供娱乐，请勿自行代入或过度解读
     </p>
   </div>
