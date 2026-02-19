@@ -199,7 +199,7 @@ export const POST = withRateLimit(async ({ request }: { request: Request }) => {
 
     Rules:
     1. Identify archetype from list. BUT: If user doesn't fit perfectly, YOU MUST INVENT a new witty 4-6 char Chinese title (e.g. "烂片考古学家"). Creativity is preferred.
-    2. Roast: Brutal, specific, funny. Must be 300+ chars. Analyze 5-axis: pretentiousness, mainstream, nostalgia, darkness, geekiness.
+    2. Roast: Brutal, specific, funny. Must be 300+ chars. Analyze 6-axis: pretentiousness, mainstream, nostalgia, darkness, geekiness, hardcore.
     3. Tags: 3-4 punchy tags.
     4. Item Analysis: Pick 30 interesting items. Comment (thought) must be spicy/insightful (20-40 chars text).
 
@@ -208,7 +208,7 @@ export const POST = withRateLimit(async ({ request }: { request: Request }) => {
       "archetype": "Name",
       "roast": "Content...",
       "tags": ["Tag1", "Tag2"],
-      "scores": { "pretentiousness": 0-100, "mainstream": 0-100, "nostalgia": 0-100, "darkness": 0-100, "geekiness": 0-100 },
+      "scores": { "pretentiousness": 0-100, "mainstream": 0-100, "nostalgia": 0-100, "darkness": 0-100, "geekiness": 0-100, "hardcore": 0-100 },
       "item_analysis": [{ "title": "Exact Title", "thought": "Roast" }]
     }
   `;
