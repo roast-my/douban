@@ -472,28 +472,36 @@
                     您的 Key 仅保留在本地浏览器，通过安全连接直接请求
                   </div>
                   
-                  <div class="space-y-2">
-                    <input
-                      type="password"
-                      autocomplete="off"
-                      bind:value={apiKeys.deepseek}
-                      placeholder="DeepSeek API Key"
-                      class="w-full bg-gray-50 border border-gray-100 rounded p-2 text-xs focus:outline-none focus:border-[#42bd56] transition-colors font-mono placeholder:text-gray-300"
-                    />
-                    <input
-                      type="password"
-                      autocomplete="off"
-                      bind:value={apiKeys.google}
-                      placeholder="Google Gemini API Key"
-                      class="w-full bg-gray-50 border border-gray-100 rounded p-2 text-xs focus:outline-none focus:border-[#42bd56] transition-colors font-mono placeholder:text-gray-300"
-                    />
-                     <input
-                      type="password"
-                      autocomplete="off"
-                      bind:value={apiKeys.qwen}
-                      placeholder="Qwen API Key"
-                      class="w-full bg-gray-50 border border-gray-100 rounded p-2 text-xs focus:outline-none focus:border-[#42bd56] transition-colors font-mono placeholder:text-gray-300"
-                    />
+                  <div class="space-y-3">
+                    <div class="flex items-center gap-3">
+                      <a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noopener noreferrer" class="w-16 shrink-0 text-xs font-mono text-[#007722]/70 hover:text-[#007722] hover:underline text-right">DeepSeek</a>
+                      <input
+                        type="password"
+                        autocomplete="off"
+                        bind:value={apiKeys.deepseek}
+                        class="flex-1 bg-gray-50 border border-gray-100 rounded p-2 text-xs focus:outline-none focus:border-[#42bd56] transition-colors font-mono placeholder:text-gray-300"
+                      />
+                    </div>
+                    
+                    <div class="flex items-center gap-3">
+                      <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="w-16 shrink-0 text-xs font-mono text-[#007722]/70 hover:text-[#007722] hover:underline text-right">Gemini</a>
+                      <input
+                        type="password"
+                        autocomplete="off"
+                        bind:value={apiKeys.google}
+                        class="flex-1 bg-gray-50 border border-gray-100 rounded p-2 text-xs focus:outline-none focus:border-[#42bd56] transition-colors font-mono placeholder:text-gray-300"
+                      />
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                      <a href="https://dashscope.console.aliyun.com/apiKey" target="_blank" rel="noopener noreferrer" class="w-16 shrink-0 text-xs font-mono text-[#007722]/70 hover:text-[#007722] hover:underline text-right">Qwen</a>
+                      <input
+                        type="password"
+                        autocomplete="off"
+                        bind:value={apiKeys.qwen}
+                        class="flex-1 bg-gray-50 border border-gray-100 rounded p-2 text-xs focus:outline-none focus:border-[#42bd56] transition-colors font-mono placeholder:text-gray-300"
+                      />
+                    </div>
                   </div>
                 </div>
               {/if}
