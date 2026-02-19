@@ -463,13 +463,15 @@
               {#if showApiKeys}
                 <div transition:slide={{ duration: 200 }} class="mt-3 space-y-3">
                   <div class="p-3 bg-yellow-50 text-yellow-800 text-[11px] rounded leading-relaxed border border-yellow-100">
-                    <span class="font-bold text-sm block mb-1">💸 开发者哭穷</span>
+                    <span class="font-bold text-sm block mb-1">💸 哭穷</span>
                     大模型烧钱如流水，开发者马上要灯枯油尽了。
                    <br />
                     
                     如若遇到请求长时间不返回的情况，请在此处填入您自己的 API KEY。
                    <br />
-                    您的 Key 仅保留在本地浏览器，通过安全连接直接请求
+                    您的 Key 仅保留在本地浏览器，通过安全连接直接请求。
+                    <br />
+                    或者给 <a href="https://github.com/roast-my/douban?tab=readme-ov-file#support-me" target="_blank" class="underline hover:text-yellow-600 font-bold">开发者打钱</a>，每个人给我打一毛钱我就能回本了（
                   </div>
                   
                   <div class="space-y-3">
