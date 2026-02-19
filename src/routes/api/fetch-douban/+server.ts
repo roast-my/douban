@@ -45,16 +45,23 @@ export const POST: RequestHandler = async ({ request }: { request: Request }) =>
     };
 
 	try {
-        // Fetch 100 items (2 parallel requests of 50)
-		const [page1, page2] = await Promise.all([
+    // Fetch 200 items (4 parallel requests of 50)
+    const [page1, page2, page3, page4] = await Promise.all([
 			fetchData(0, 50),
-			fetchData(50, 50)
+      fetchData(50, 50),
+      fetchData(100, 50),
+      fetchData(150, 50)
 		]);
 
-		const rawInterests = [...(page1.interests || []), ...(page2.interests || [])];
+    const rawInterests = [
+      ...(page1.interests || []),
+      ...(page2.interests || []),
+      ...(page3.interests || []),
+      ...(page4.interests || [])
+    ];
 
         // Map to cleaner format
-        const items = rawInterests.map((item: any) => ({
+    let items = rawInterests.map((item: any) => ({
             title: item.subject?.title || '未知',
             rating: item.rating?.value, // API returns object { value: 5, ... }
             tags: item.tags,
@@ -68,6 +75,10 @@ export const POST: RequestHandler = async ({ request }: { request: Request }) =>
           const hasTags = Array.isArray(item.tags) && item.tags.length > 0;
           return hasRating || hasComment || hasTags;
         });
+
+    if (items.length > 100) {
+      items = items.sort(() => 0.5 - Math.random()).slice(0, 100);
+    }
 
     const result = {
             count: items.length,
