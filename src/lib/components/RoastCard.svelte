@@ -180,7 +180,7 @@
       <header class="border-b-2 border-[#007722]/20 pb-4 mb-8 flex justify-between items-end">
         <div>
           <h2 class="text-xs text-[#007722]/70 uppercase tracking-widest mb-1">诊断对象 ID</h2>
-          <h1 class="text-3xl font-bold font-sans text-[#007722] uppercase tracking-tighter">{result.archetype}</h1>
+          <h1 class="text-[26px] sm:text-3xl font-bold font-sans text-[#007722] uppercase tracking-tighter">{result.archetype}</h1>
         </div>
         <div class="text-right">
           <span class="text-xs text-[#007722]/50 block">确诊率</span>

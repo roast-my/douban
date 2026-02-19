@@ -51,7 +51,7 @@ async function callQwen(prompt: string): Promise<LLMResponse> {
       'Authorization': `Bearer ${ env.DASHSCOPE_API_KEY }`
     },
     body: JSON.stringify({
-      model: 'qwen-plus',
+      model: 'qwen3.5-plus',
       messages: [{ role: 'user', content: prompt }]
     })
   });
