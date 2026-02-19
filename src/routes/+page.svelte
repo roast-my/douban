@@ -2,6 +2,7 @@
   import RoastCard from '$lib/components/RoastCard.svelte';
   import TypewriterText from '$lib/components/TypewriterText.svelte';
   import {fade, fly, scale, slide} from 'svelte/transition';
+  import { onMount } from 'svelte';
 
   let userId = $state('');
   let type = $state('book');
@@ -43,7 +44,7 @@
     qwen: ''
   });
 
-  $effect(() => {
+  onMount(() => {
     const saved = localStorage.getItem('douban_roast_api_keys');
     if (saved) {
       try {
@@ -56,6 +57,7 @@
   });
 
   $effect(() => {
+    // Only save if keys are present (basic debounce logic via Svelte batching)
     if (apiKeys.google || apiKeys.deepseek || apiKeys.qwen) {
       localStorage.setItem('douban_roast_api_keys', JSON.stringify(apiKeys));
     }
@@ -455,7 +457,7 @@
                 >
                   <polyline points="9 18 15 12 9 6"></polyline>
                 </svg>
-                <span>设置 API Key</span>
+                <span class="cursor-pointer">设置 API Key</span>
               </button>
 
               {#if showApiKeys}
@@ -475,21 +477,21 @@
                       type="password"
                       autocomplete="off"
                       bind:value={apiKeys.deepseek}
-                      placeholder="DeepSeek API Key (sk-...)"
+                      placeholder="DeepSeek API Key"
                       class="w-full bg-gray-50 border border-gray-100 rounded p-2 text-xs focus:outline-none focus:border-[#42bd56] transition-colors font-mono placeholder:text-gray-300"
                     />
                     <input
                       type="password"
                       autocomplete="off"
                       bind:value={apiKeys.google}
-                      placeholder="Google Gemini API Key (AIza...)"
+                      placeholder="Google Gemini API Key"
                       class="w-full bg-gray-50 border border-gray-100 rounded p-2 text-xs focus:outline-none focus:border-[#42bd56] transition-colors font-mono placeholder:text-gray-300"
                     />
                      <input
                       type="password"
                       autocomplete="off"
                       bind:value={apiKeys.qwen}
-                      placeholder="Qwen API Key (sk-...)"
+                      placeholder="Qwen API Key"
                       class="w-full bg-gray-50 border border-gray-100 rounded p-2 text-xs focus:outline-none focus:border-[#42bd56] transition-colors font-mono placeholder:text-gray-300"
                     />
                   </div>

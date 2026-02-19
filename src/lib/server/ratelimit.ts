@@ -44,7 +44,7 @@ export async function checkRateLimit(
         return new Response(
           JSON.stringify({
             error: 'Rate limit exceeded',
-            message: '请求太频繁啦，请休息一下，明天再试吧'
+            message: '请求太频繁啦，请休息一下明天再试，或者可以填入你自己的 API Key'
           }),
           {
             status: 429,
