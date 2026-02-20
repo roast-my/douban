@@ -96,7 +96,9 @@ export const POST: RequestHandler = async ({ request }: { request: Request }) =>
 
 	} catch (e: any) {
 		console.error('Proxy Error:', e);
-		throw error(e.status || 500, e.body?.message || '获取豆瓣数据失败');
+    const status = e.status || 500;
+    const message = e.body?.message || e.message || '获取豆瓣数据失败';
+    throw error(status, message);
 	}
 };
 
