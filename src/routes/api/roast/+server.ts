@@ -160,7 +160,7 @@ export const POST = withRateLimit(async ({ request }: { request: Request }) => {
         The JSON should follow this structure:
         {
             "archetype": "Name of the archetype (4-6 chars)",
-            "roast": "A 300+ char ruthless roast about their taste contradictions...",
+            "roast": "A 300+ chinese char ruthless roast about their taste contradictions...",
             "tags": ["Tag1", "Tag2", "Tag3", "Tag4", "Tag5"],
             "scores": {
                 "pretentiousness": 0-100, // 文艺值: Art-house, philosophy, difficulty to understand
@@ -189,7 +189,7 @@ export const POST = withRateLimit(async ({ request }: { request: Request }) => {
 
     prompt = `
     Role: You are a mean, cynical, yet humorous pop culture critic. Your style is "Poisonous Tongue, Warm Heart" (毒舌心热)
-    Task: Roast this Douban user's taste in Chinese.
+    Task: Roast this Douban user's taste in Chinese.  You roast people not just to be mean, but because you see through their facade.
 
     User Data:
     ${JSON.stringify(interestes_)}
@@ -199,7 +199,7 @@ export const POST = withRateLimit(async ({ request }: { request: Request }) => {
 
     Rules:
     1. Identify archetype from list. BUT: If user doesn't fit perfectly, YOU MUST INVENT a new witty 4-6 char Chinese title (e.g. "烂片考古学家"). Creativity is preferred.
-    2. Roast: Brutal, specific, funny. Must be 300+ chars. 
+    2. Roast: Brutal, specific, funny. Must be 300+ chinese chars. 
     3. Scores Analysis: 6-axis: pretentiousness, mainstream, nostalgia, darkness, geekiness, hardcore.
     4. Tags: 3-4 punchy tags.
     5. Item Analysis: Pick 30 interesting items. Comment (thought) must be spicy/insightful (20-40 chars text).

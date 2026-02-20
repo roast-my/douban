@@ -24,6 +24,7 @@
     google: '',
     deepseek: '',
     qwen: '',
+    openai: '',
   });
 
   onMount(() => {
@@ -302,6 +303,22 @@
                         type="password"
                         autocomplete="off"
                         bind:value={apiKeys.qwen}
+                        class="flex-1 bg-gray-50 border border-gray-100 rounded p-2 text-xs focus:outline-none focus:border-[#42bd56] transition-colors font-mono placeholder:text-gray-300"
+                      />
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                      <a
+                        href="https://platform.openai.com/api-keys"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-16 shrink-0 text-xs font-mono text-[#007722]/70 hover:text-[#007722] hover:underline text-right"
+                        >ChatGPT</a
+                      >
+                      <input
+                        type="password"
+                        autocomplete="off"
+                        bind:value={apiKeys.openai}
                         class="flex-1 bg-gray-50 border border-gray-100 rounded p-2 text-xs focus:outline-none focus:border-[#42bd56] transition-colors font-mono placeholder:text-gray-300"
                       />
                     </div>

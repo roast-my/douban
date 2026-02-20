@@ -13,6 +13,7 @@ export interface ApiKeys {
   qwen?: string;
   doubao?: string;
   zhipu?: string;
+  openai?: string;
 }
 
 // --- Providers ---
@@ -119,6 +120,29 @@ async function callZhipu(prompt: string, apiKey?: string): Promise<LLMResponse> 
   return { text: data.choices[0].message.content, model: 'GLM-4 Plus' };
 }
 
+async function callOpenAI(prompt: string, apiKey?: string): Promise<LLMResponse> {
+  const key = apiKey || env.OPENAI_API_KEY;
+  if (!key) throw new Error("Missing OPENAI_API_KEY");
+
+  const model = env.OPENAI_MODEL_ID || 'gpt-5';
+
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${ key }`
+    },
+    body: JSON.stringify({
+      model: model,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+
+  if (!response.ok) throw new Error(`OpenAI API Error: ${ response.status }`);
+  const data = await response.json();
+  return { text: data.choices[0].message.content, model: `OpenAI (${ model })` };
+}
+
 // --- Main Router ---
 
 export async function generateRoast(prompt: string, apiKeys?: ApiKeys): Promise<LLMResponse> {
@@ -130,6 +154,7 @@ export async function generateRoast(prompt: string, apiKeys?: ApiKeys): Promise<
   if (env.DASHSCOPE_API_KEY || apiKeys?.qwen) providers.push({ name: 'Qwen', fn: callQwen, key: apiKeys?.qwen });
   if ((env.DOUBAO_API_KEY || apiKeys?.doubao) && env.DOUBAO_ENDPOINT_ID_TEXT) providers.push({ name: 'Doubao', fn: callDoubao, key: apiKeys?.doubao });
   if (env.ZHIPU_API_KEY || apiKeys?.zhipu) providers.push({ name: 'Zhipu', fn: callZhipu, key: apiKeys?.zhipu });
+  if (env.OPENAI_API_KEY || apiKeys?.openai) providers.push({ name: 'OpenAI', fn: callOpenAI, key: apiKeys?.openai });
 
   if (providers.length === 0) {
     throw new Error('No LLM providers configured. Please provide an API Key or set one on the server.');

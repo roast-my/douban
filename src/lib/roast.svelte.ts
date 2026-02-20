@@ -42,7 +42,7 @@ export class Roaster {
      }
   }
 
-  async start(apiKeys: { google?: string; deepseek?: string; qwen?: string } = {}) {
+  async start(apiKeys: { google?: string; deepseek?: string; qwen?: string; openai?: string } = {}) {
     if (!this.userId) {
       this.errorMsg = '请输入豆瓣ID';
       return;
@@ -104,7 +104,8 @@ export class Roaster {
           apiKeys: {
             google: apiKeys.google || undefined,
             deepseek: apiKeys.deepseek || undefined,
-            qwen: apiKeys.qwen || undefined
+            qwen: apiKeys.qwen || undefined,
+            openai: apiKeys.openai || undefined
           }
         }),
         headers: {'Content-Type': 'application/json'},
