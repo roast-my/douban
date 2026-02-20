@@ -1,18 +1,16 @@
 <script lang="ts">
   import RoastCard from '../components/RoastCard.svelte';
   import TypewriterText from '../components/TypewriterText.svelte';
-  import { Roaster } from '$lib/roast.svelte';
+  import {Roaster} from '$lib/roast.svelte';
   import {fade, fly, scale, slide} from 'svelte/transition';
-  import { onMount } from 'svelte';
+  import {onMount} from 'svelte';
 
   const roaster = new Roaster();
 
   // Log state with IDs for stable rendering
   let logContainer = $state<HTMLDivElement>();
 
-  // Auto-scroll logs
   $effect(() => {
-    // Trigger scroll when logs length changes
     if (logContainer && roaster.systemLogs.length) {
       // Use requestAnimationFrame to wait for DOM update (height change)
       requestAnimationFrame(() => {
@@ -21,12 +19,11 @@
     }
   });
 
-  // Custom API Keys
   let showApiKeys = $state(false);
   let apiKeys = $state({
     google: '',
     deepseek: '',
-    qwen: ''
+    qwen: '',
   });
 
   onMount(() => {
@@ -34,7 +31,7 @@
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        apiKeys = { ...apiKeys, ...parsed };
+        apiKeys = {...apiKeys, ...parsed};
       } catch (e) {
         console.error('Failed to parse saved API keys', e);
       }
@@ -136,7 +133,9 @@
             onsubmit={handleSubmit}
             class="w-full space-y-6 bg-white p-8 rounded-xl shadow-[0_20px_50px_-12px_rgba(0,119,34,0.15)] border border-[#007722]/10 relative backdrop-blur-sm"
           >
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#007722]/70 to-[#42bd56] rounded-t-xl"></div>
+            <div
+              class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#007722]/70 to-[#42bd56] rounded-t-xl"
+            ></div>
 
             <div class="space-y-2">
               <label
@@ -157,14 +156,23 @@
                     stroke-linejoin="round"
                     class="text-[#007722]/50 hover:text-[#007722] transition-colors"
                   >
-                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    ></circle>
                     <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    <line
+                      x1="12"
+                      y1="17"
+                      x2="12.01"
+                      y2="17"
+                    ></line>
                   </svg>
                   <div
                     class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-60 p-2 bg-white bg-opacity-80 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center shadow-lg"
-                  >就是你豆瓣链接后面那一坨数字！！！ 不是你的网名！！！
-            
+                  >
+                    就是你豆瓣链接后面那一坨数字！！！ 不是你的网名！！！
                   </div>
                 </div>
               </label>
@@ -230,20 +238,34 @@
               </button>
 
               {#if showApiKeys}
-                <div transition:slide={{ duration: 200 }} class="mt-3 space-y-3">
-                  <div class="p-3 bg-yellow-50 text-yellow-800 text-[11px] rounded leading-relaxed border border-yellow-100">
+                <div
+                  transition:slide={{duration: 200}}
+                  class="mt-3 space-y-3"
+                >
+                  <div
+                    class="p-3 bg-yellow-50 text-yellow-800 text-[11px] rounded leading-relaxed border border-yellow-100"
+                  >
                     <span class="font-bold text-sm block mb-1">💸 哭穷</span>
-                    大模型烧钱如流水，开发者马上要灯枯油尽了。
-                    
-                    如若遇到请求长时间不返回的情况，请在下方填入您自己的 API Key。
+                    大模型烧钱如流水，开发者马上要灯枯油尽了。 如若遇到请求长时间不返回的情况，请在下方填入您自己的 API Key。
                     您的 Key 仅保留在本地浏览器，通过安全连接直接请求。
                     <br />
-                    或者给 <a href="https://github.com/roast-my/douban?tab=readme-ov-file#support-me" target="_blank" class="underline hover:text-yellow-600 font-bold">开发者打钱</a>，每个人给我打一毛钱我就能回本了，然后给大模型充值，让它继续为人民服务（
+                    或者给
+                    <a
+                      href="https://github.com/roast-my/douban?tab=readme-ov-file#support-me"
+                      target="_blank"
+                      class="underline hover:text-yellow-600 font-bold">开发者打钱</a
+                    >，每个人给我打一毛钱我就能回本了，然后给大模型充值，让它继续为人民服务（
                   </div>
-                  
+
                   <div class="space-y-3">
                     <div class="flex items-center gap-3">
-                      <a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noopener noreferrer" class="w-16 shrink-0 text-xs font-mono text-[#007722]/70 hover:text-[#007722] hover:underline text-right">DeepSeek</a>
+                      <a
+                        href="https://platform.deepseek.com/api_keys"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-16 shrink-0 text-xs font-mono text-[#007722]/70 hover:text-[#007722] hover:underline text-right"
+                        >DeepSeek</a
+                      >
                       <input
                         type="password"
                         autocomplete="off"
@@ -251,9 +273,15 @@
                         class="flex-1 bg-gray-50 border border-gray-100 rounded p-2 text-xs focus:outline-none focus:border-[#42bd56] transition-colors font-mono placeholder:text-gray-300"
                       />
                     </div>
-                    
+
                     <div class="flex items-center gap-3">
-                      <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="w-16 shrink-0 text-xs font-mono text-[#007722]/70 hover:text-[#007722] hover:underline text-right">Gemini</a>
+                      <a
+                        href="https://aistudio.google.com/app/apikey"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-16 shrink-0 text-xs font-mono text-[#007722]/70 hover:text-[#007722] hover:underline text-right"
+                        >Gemini</a
+                      >
                       <input
                         type="password"
                         autocomplete="off"
@@ -263,7 +291,13 @@
                     </div>
 
                     <div class="flex items-center gap-3">
-                      <a href="https://dashscope.console.aliyun.com/apiKey" target="_blank" rel="noopener noreferrer" class="w-16 shrink-0 text-xs font-mono text-[#007722]/70 hover:text-[#007722] hover:underline text-right">Qwen</a>
+                      <a
+                        href="https://dashscope.console.aliyun.com/apiKey"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-16 shrink-0 text-xs font-mono text-[#007722]/70 hover:text-[#007722] hover:underline text-right"
+                        >Qwen</a
+                      >
                       <input
                         type="password"
                         autocomplete="off"
@@ -403,10 +437,12 @@
     {/if}
   </div>
 
-  <div class="absolute bottom-4 left-0 w-full text-center select-none ">
+  <div class="absolute bottom-4 left-0 w-full text-center select-none">
     <p class="text-[11px] text-[#007722]/50 font-mono mx-6">
-      Designed by <a target="_blank" rel="noopener noreferrer" href="https://github.com/anig1scur">Yanxin</a> and made with Gemini.
-      内容由 AI 生成，仅供娱乐，请勿自行代入或过度解读
+      Designed by <a target="_blank"
+        rel="noopener noreferrer"
+        href="https://github.com/anig1scur">Yanxin</a
+      > and made with Gemini. 内容由 AI 生成，仅供娱乐，请勿自行代入或过度解读
     </p>
   </div>
 </div>
