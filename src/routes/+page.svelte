@@ -273,13 +273,6 @@
                   >
                     如若遇到请求长时间不返回的情况，可在下方填入您自己的 API Key，可能输出更丰富的结果哦。 您的 Key
                     仅保留在本地浏览器，通过安全连接直接请求。
-                    <div class="h-1"></div>
-                    或者给
-                    <a
-                      href="https://github.com/roast-my/douban?tab=readme-ov-file#support-me"
-                      target="_blank"
-                      class="underline hover:text-yellow-600 font-bold">开发者打钱</a
-                    >，每个人给我打一毛钱我就能回本了，然后给大模型充值，让它继续为人民服务（
                   </div>
 
                   <div class="space-y-3">
