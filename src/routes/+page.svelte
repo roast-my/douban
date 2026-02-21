@@ -247,11 +247,9 @@
                   <div
                     class="p-3 bg-yellow-50 text-yellow-800 text-[11px] rounded leading-relaxed border border-yellow-100"
                   >
-                    <span class="font-bold text-sm block mb-1">💸 哭穷</span>
-
-                    如若遇到请求长时间不返回的情况，可在下方填入您自己的 API Key。 您的 Key
+                    如若遇到请求长时间不返回的情况，可在下方填入您自己的 API Key，可能输出更丰富的结果哦。 您的 Key
                     仅保留在本地浏览器，通过安全连接直接请求。
-                    <br />
+                    <div class="h-1 " />
                     或者给
                     <a
                       href="https://github.com/roast-my/douban?tab=readme-ov-file#support-me"

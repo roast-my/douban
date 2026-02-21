@@ -148,8 +148,8 @@ export const POST = withRateLimit(async ({ request }: { request: Request }) => {
         1. "archetype": A creative, slightly mean 4-word title (e.g. "文艺复兴守门员").
         2. "roast": A vicious, sharp, and humorous critique of their taste. **Do not be short.** Deeply analyze their specific choices (high rating vs low rating). Mention specific titles if possible to roast them.
         3. "tags": 3-5 short, punchy tags. **IMPORTANT:** Do not feel limited to the example tags in the definitions. You are ENCOURAGED to generate creative, specific tags based on the user's unique list (e.g. "#Nolan_Fanboy", "#Ghibli_Addict").
-        4. "scores": specific scores (0-100) for the 5-axis psychological profile: "pretentiousness", "mainstream", "nostalgia", "darkness", "geekiness".
-        5. "item_analysis": An array of objects, selecting the 30 most noteworthy items. **Prioritize items where the user wrote a comment or gave a conflicting rating.** 
+        4. "scores": specific scores (0-100) for the 6-axis psychological profile: "pretentiousness", "mainstream", "nostalgia", "darkness", "geekiness", "hardcore".
+        5. "item_analysis": An array of objects, selecting the 50 most noteworthy items. **Prioritize items where the user wrote a comment or gave a conflicting rating.** 
         For each, provide a "thought" string (20-40 Chinese chars). 
         
         **CRITICAL STYLE FOR THOUGHTS:**
