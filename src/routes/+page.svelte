@@ -19,6 +19,7 @@
     }
   });
 
+  // Custom API Keys
   let showApiKeys = $state(false);
   let apiKeys = $state({
     google: '',
@@ -247,8 +248,9 @@
                     class="p-3 bg-yellow-50 text-yellow-800 text-[11px] rounded leading-relaxed border border-yellow-100"
                   >
                     <span class="font-bold text-sm block mb-1">💸 哭穷</span>
-                    如若遇到请求长时间不返回的情况，可在下方填入您自己的 API Key。
-                    您的 Key 仅保留在本地浏览器，通过安全连接直接请求。
+
+                    如若遇到请求长时间不返回的情况，可在下方填入您自己的 API Key。 您的 Key
+                    仅保留在本地浏览器，通过安全连接直接请求。
                     <br />
                     或者给
                     <a
@@ -259,6 +261,7 @@
                   </div>
 
                   <div class="space-y-3">
+            
                     <div class="flex items-center gap-3">
                       <a
                         href="https://platform.deepseek.com/api_keys"
@@ -306,7 +309,6 @@
                         class="flex-1 bg-gray-50 border border-gray-100 rounded p-2 text-xs focus:outline-none focus:border-[#42bd56] transition-colors font-mono placeholder:text-gray-300"
                       />
                     </div>
-
                     <div class="flex items-center gap-3">
                       <a
                         href="https://platform.openai.com/api-keys"
@@ -318,7 +320,7 @@
                       <input
                         type="password"
                         autocomplete="off"
-                        bind:value={apiKeys.openai}
+                        bind:value={apiKeys.chatgpt}
                         class="flex-1 bg-gray-50 border border-gray-100 rounded p-2 text-xs focus:outline-none focus:border-[#42bd56] transition-colors font-mono placeholder:text-gray-300"
                       />
                     </div>
@@ -439,10 +441,20 @@
             </div>
 
             <!-- Progress -->
-            <div class="pt-2 border-t border-[#007722]/10 flex justify-between items-end text-[#007722]/30">
+            <div class="pt-2 border-t border-[#007722]/10 flex justify-between items-center text-[#007722]/30">
               <div>
                 进度: {Math.min(roaster.scannedCount, roaster.totalItems)} / {roaster.totalItems}
               </div>
+              
+              {#if roaster.status === 'analyzing'}
+                <button 
+                  type="button"
+                  onclick={() => roaster.skip()}
+                  class="text-[10px] font-bold py-1.5 px-3 bg-[#007722]/5 text-[#007722]/50 hover:text-[#007722] hover:bg-[#007722]/10 transition-colors cursor-pointer rounded-full"
+                >
+                  跳过动画
+                </button>
+              {/if}
             </div>
           </div>
         </div>
@@ -456,7 +468,8 @@
 
   <div class="absolute bottom-4 left-0 w-full text-center select-none">
     <p class="text-[11px] text-[#007722]/50 font-mono mx-6">
-      Designed by <a target="_blank"
+      Designed by <a
+        target="_blank"
         rel="noopener noreferrer"
         href="https://github.com/anig1scur">Yanxin</a
       > and made with Gemini. 内容由 AI 生成，仅供娱乐，请勿自行代入或过度解读

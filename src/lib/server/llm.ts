@@ -13,7 +13,7 @@ export interface ApiKeys {
   qwen?: string;
   doubao?: string;
   zhipu?: string;
-  openai?: string;
+  chatgpt?: string;
 }
 
 // --- Providers ---
@@ -154,7 +154,7 @@ export async function generateRoast(prompt: string, apiKeys?: ApiKeys): Promise<
   if (env.DASHSCOPE_API_KEY || apiKeys?.qwen) providers.push({ name: 'Qwen', fn: callQwen, key: apiKeys?.qwen });
   if ((env.DOUBAO_API_KEY || apiKeys?.doubao) && env.DOUBAO_ENDPOINT_ID_TEXT) providers.push({ name: 'Doubao', fn: callDoubao, key: apiKeys?.doubao });
   if (env.ZHIPU_API_KEY || apiKeys?.zhipu) providers.push({ name: 'Zhipu', fn: callZhipu, key: apiKeys?.zhipu });
-  if (env.OPENAI_API_KEY || apiKeys?.openai) providers.push({ name: 'OpenAI', fn: callOpenAI, key: apiKeys?.openai });
+  if (env.OPENAI_API_KEY || apiKeys?.chatgpt) providers.push({ name: 'OpenAI', fn: callOpenAI, key: apiKeys?.chatgpt });
 
   if (providers.length === 0) {
     throw new Error('No LLM providers configured. Please provide an API Key or set one on the server.');

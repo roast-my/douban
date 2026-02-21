@@ -106,7 +106,7 @@ export const POST = withRateLimit(async ({ request }: { request: Request }) => {
   }
 
   // Check if we should use the rich prompt (User provided keys)
-  const useRichPrompt = apiKeys?.google || apiKeys?.deepseek || apiKeys?.qwen;
+  const useRichPrompt = apiKeys?.google || apiKeys?.deepseek || apiKeys?.qwen || apiKeys?.chatgpt;
 
   let prompt = '';
 
@@ -131,19 +131,23 @@ export const POST = withRateLimit(async ({ request }: { request: Request }) => {
         Analyze this user's taste based on their Douban interests history:
         ${JSON.stringify(interestes_)}
         
-        Based on the definitions below, identify the user's specific archetype.
+        **SAFE ROASTING POLICY (DO NOT VIOLATE):**
+        - **RESPECT IDENTITY & JUSTICE:** Never roast the user's stance on gender equality, feminism, LGBTQ+ rights, race, or human rights. 
+        - **NO MISOGYNY/DISCRIMINATION:** Do not use gendered insults or patronizing tones. If the user likes feminist content/high-scorers, do NOT roast or mock the movement or values.
+        - **ROAST TASTE, NOT VALUES:** Focus your "poisonous tongue" on their pop culture consumption habits, intellectual vanity, over-hyped trends, and contradictions in entertainment taste.
         
+        Based on the definitions below, identify the user's specific archetype:
         ${ARCHETYPE_DEFINITIONS_LONG}
 
         **IMPORTANT Archetype Selection Rules:**
         - **CREATIVE MODE ENABLED:** If the user's taste is distinct and funny but doesn't fit the above 13 archetypes perfectly, **YOU MUST INVENT A NEW ONE**.
-        - The new archetype name must be 4-6 Chinese characters, witty, mean, and specific (e.g. "烂片考古学家", "纯爱战神", "午夜emo冠军").
+        - The new archetype name must be 4-10 Chinese characters, witty, mean, and specific (e.g. "烂片考古学家", "纯爱战神", "午夜emo冠军").
         - **Creativity is preferred.** Don't just pick the safe option.
 
         Output a JSON object with:
         1. "archetype": A creative, slightly mean 4-word title (e.g. "文艺复兴守门员").
         2. "roast": A vicious, sharp, and humorous critique of their taste. **Do not be short.** Deeply analyze their specific choices (high rating vs low rating). Mention specific titles if possible to roast them.
-        3. "tags": 3-4 short, punchy tags. **IMPORTANT:** Do not feel limited to the example tags in the definitions. You are ENCOURAGED to generate creative, specific tags based on the user's unique list (e.g. "#Nolan_Fanboy", "#Ghibli_Addict").
+        3. "tags": 3-5 short, punchy tags. **IMPORTANT:** Do not feel limited to the example tags in the definitions. You are ENCOURAGED to generate creative, specific tags based on the user's unique list (e.g. "#Nolan_Fanboy", "#Ghibli_Addict").
         4. "scores": specific scores (0-100) for the 5-axis psychological profile: "pretentiousness", "mainstream", "nostalgia", "darkness", "geekiness".
         5. "item_analysis": An array of objects, selecting the 30 most noteworthy items. **Prioritize items where the user wrote a comment or gave a conflicting rating.** 
         For each, provide a "thought" string (20-40 Chinese chars). 
@@ -152,27 +156,23 @@ export const POST = withRateLimit(async ({ request }: { request: Request }) => {
         - **Format**: Pure text.
         - **Tone**: "Spicy & Insightful & Smart" (毒舌且一针见血，且有深度)
         - **Content**: Don't just say "Good movie". Say *why* this specific user watched it or rated it that way. Use the timestamp/rating/tags!
-        - **Examples**:
-            - Bad: "High rating -> Good test."
-            - Good: "Midnight 3AM rating? Someone was lonely." (半夜三点看这个？孤独等级Lv99。)
-            - Good: "Giving this 5 stars proves you have no boundaries." (给这种烂片打五星，你的审美底线是马里亚纳海沟吗？)
 
         The JSON should follow this structure:
         {
-            "archetype": "Name of the archetype (4-6 chars)",
-            "roast": "A 300+ chinese char ruthless roast about their taste contradictions...",
+            "archetype": "Name of the archetype (4-10 chars)",
+            "roast": "A 1000+ char ruthless roast about their taste contradictions...",
             "tags": ["Tag1", "Tag2", "Tag3", "Tag4", "Tag5"],
             "scores": {
-                "pretentiousness": 0-100, // 文艺值: Art-house, philosophy, difficulty to understand
-                "mainstream": 0-100, // 现充值: Blockbusters, popular music
-                "nostalgia": 0-100, // 怀旧值: Old content (pre-2000s)
-                "darkness": 0-100, // 致郁值: Horror, crime, tragedy
-                "geekiness": 0-100, // 死宅值: Sci-fi, anime, fantasy
-                "hardcore": 0-100 // 硬核值: Non-fiction, history, science, business
+                "pretentiousness": 0-100, 
+                "mainstream": 0-100,
+                "nostalgia": 0-100, 
+                "darkness": 0-100, 
+                "geekiness": 0-100, 
+                "hardcore": 0-100 
             },
             "item_analysis": [
-                { "title": "Exact Title 1", "thought": "Spicy remark here" },
-                { "title": "Exact Title 2", "thought": "Another snarky comment" }
+            ["Title", "Thought"], ["Title", "Thought"]
+            
             ]
         }
     `;
@@ -188,21 +188,26 @@ export const POST = withRateLimit(async ({ request }: { request: Request }) => {
     }));
 
     prompt = `
-    Role: You are a mean, cynical, yet humorous and kind culture critic. Your style is "Poisonous Tongue, Warm Heart" (毒舌心热)
+    Role: You are a mean, cynical, yet humorous culture critic. Your style is "Poisonous Tongue, Warm Heart" (毒舌心热)
     Task: Roast this Douban user's taste in Chinese.  You roast people not just to be mean, but because you see through their facade.
 
     User Data:
     ${JSON.stringify(interestes_)}
     
+    **SAFE ROASTING POLICY (CRITICAL):**
+    - Do NOT be misogynistic or attack identity (gender, race, etc.). 
+    - If user likes feminist content/justice, do NOT roast the movement or values. 
+    - Roast their pop culture taste and intellectual vanity ONLY.
+    
     Archetypes:
     ${ARCHETYPE_DEFINITIONS_SHORT}
 
     Rules:
-    1. Identify archetype from list. BUT: If user doesn't fit perfectly, YOU MUST INVENT a new witty 4-8 char Chinese title (e.g. "烂片考古学家"). Creativity is preferred.
-    2. Roast: Brutal, specific, funny. Must be 300+ chinese chars. 
+    1. Identify archetype from list. BUT: If user doesn't fit perfectly, YOU MUST INVENT a new witty 4-10 char Chinese title (e.g. "烂片考古学家"). Creativity is preferred.
+    2. Roast: Brutal, specific, funny. Must be 500+ chars. 
     3. Scores Analysis: 6-axis: pretentiousness, mainstream, nostalgia, darkness, geekiness, hardcore.
-    4. Tags: 3-4 punchy tags.
-    5. Item Analysis: Pick 30 interesting items with user's comments. Comment (thought) must be spicy&insightful (20-40 chars text).
+    4. Tags: 3-5 punchy tags.
+    5. Item Analysis: Pick 30 interesting items. Comment (thought) must be spicy/insightful (20-40 chars text).
 
     Output JSON:
     {
@@ -210,7 +215,7 @@ export const POST = withRateLimit(async ({ request }: { request: Request }) => {
       "roast": "Content...",
       "tags": ["Tag1", "Tag2"],
       "scores": { "pretentiousness": 0-100, "mainstream": 0-100, "nostalgia": 0-100, "darkness": 0-100, "geekiness": 0-100, "hardcore": 0-100 },
-      "item_analysis": [{ "title": "Exact Title", "thought": "Roast" }]
+      "item_analysis": [["Title", "Thought"], ["Title", "Thought"]]
     }
   `;
   }

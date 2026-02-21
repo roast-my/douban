@@ -20,8 +20,13 @@ export class Roaster {
   
   // Internal Reference
   private ingestionInterval: any;
+  private isSkipped = false;
 
   constructor() {}
+
+  skip() {
+    this.isSkipped = true;
+  }
 
   reset() {
     this.status = 'scanning';
@@ -32,6 +37,7 @@ export class Roaster {
     this.systemLogs = [{id: this.logCounter++, text: '正在建立精神连接...'}];
     this.analysisMap.clear();
     this.result = null;
+    this.isSkipped = false;
   }
 
   addLog(text: string, speed?: number) {
@@ -42,7 +48,7 @@ export class Roaster {
      }
   }
 
-  async start(apiKeys: { google?: string; deepseek?: string; qwen?: string; openai?: string } = {}) {
+  async start(apiKeys: { google?: string; deepseek?: string; qwen?: string; chatgpt?: string } = {}) {
     if (!this.userId) {
       this.errorMsg = '请输入豆瓣ID';
       return;
@@ -56,7 +62,16 @@ export class Roaster {
       
       const fetchRes = await fetch('/api/fetch-douban', {
         method: 'POST',
-        body: JSON.stringify({userId: this.userId, type: this.type}),
+        body: JSON.stringify({
+          userId: this.userId,
+          type: this.type,
+          apiKeys: {
+            google: apiKeys.google || undefined,
+            deepseek: apiKeys.deepseek || undefined,
+            qwen: apiKeys.qwen || undefined,
+            chatgpt: apiKeys.chatgpt || undefined
+          }
+        }),
         headers: {'Content-Type': 'application/json'},
       });
 
@@ -105,8 +120,9 @@ export class Roaster {
             google: apiKeys.google || undefined,
             deepseek: apiKeys.deepseek || undefined,
             qwen: apiKeys.qwen || undefined,
-            openai: apiKeys.openai || undefined
-          }
+            chatgpt: apiKeys.chatgpt || undefined
+          },
+          userId: this.userId
         }),
         headers: {'Content-Type': 'application/json'},
       });
@@ -131,7 +147,13 @@ export class Roaster {
       this.result = roastData;
 
       // 3. Play Scanning Animation
+      this.status = 'analyzing';
       await this.playScanningAnimation(itemsToScan);
+
+      if (this.isSkipped) {
+        this.status = 'success';
+        return;
+      }
 
       this.status = 'analyzing';
       this.addLog('正在生成最终诊断报告...');
@@ -189,18 +211,33 @@ export class Roaster {
           if (i.comment) commentMap.set(i.title, i.comment);
         });
 
+        // Store as array to fulfill "cancel title and thought" requirement
+        const normalizedItems: any[] = [];
         roastData.item_analysis.forEach((analysis: any) => {
-          this.analysisMap.set(analysis.title, analysis.thought);
-          if (commentMap.has(analysis.title)) {
-            analysis.user_comment = commentMap.get(analysis.title);
+          // Handle both old {title, thought} and new [title, thought]
+          const title = Array.isArray(analysis) ? analysis[0] : analysis.title;
+          const thought = Array.isArray(analysis) ? analysis[1] : analysis.thought;
+
+          if (!title) return;
+
+          this.analysisMap.set(title, thought);
+
+          // Structure: [title, thought, user_comment]
+          const itemArr = [title, thought];
+          if (commentMap.has(title)) {
+            itemArr[2] = commentMap.get(title);
           }
+          normalizedItems.push(itemArr);
         });
+
+        roastData.item_analysis = normalizedItems;
         this.addLog('侧写向量已同步. 开始回放分析.');
       }
   }
 
   private async playScanningAnimation(itemsToScan: any[]) {
       for (const item of itemsToScan) {
+        if (this.isSkipped) break;
         // Sampling logic
         if (itemsToScan.length > 50) {
           const hasAnalysis = this.analysisMap.has(item.title);
