@@ -84,13 +84,13 @@
       >
         <!-- Left Column: Hero Image (Poster) -->
         <div
-          class="w-full max-w-[280px] md:max-w-[320px] shrink-0 transform rotate-[-2deg] hover:rotate-0 transition-transform duration-500 ease-out z-10"
+          class="w-full max-w-[380px] md:max-w-[380px] shrink-0 transform rotate-[-2deg] hover:rotate-0 transition-transform duration-500 ease-out z-10"
         >
           <a
             href="https://www.douban.com/people/14188082/status/2532037238/"
             target="_blank"
             rel="noopener noreferrer"
-            class="relative block rounded-lg shadow-sm border-[6px] border-white overflow-hidden aspect-[9/14] bg-slate-100 group"
+            class="relative block rounded-lg shadow-sm border-[6px] border-white overflow-hidden aspect-[11/14] bg-slate-100 group"
           >
             <!-- Placeholder color while loading or if missing -->
             <div
@@ -99,7 +99,7 @@
               豆瓣画像
             </div>
             <img
-              src="/douban.webp"
+              src="/douban_new.webp"
               alt="Douban Life"
               class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               onerror={(e) => ((e.currentTarget as HTMLImageElement).style.display = 'none')}
@@ -122,14 +122,14 @@
 
         <!-- Right Column: Login Form -->
         <div class="w-full max-w-md flex flex-col items-center gap-4">
-          <div class="text-center mb-8">
+          <!-- <div class="text-center mb-8">
             <h1
               class="text-3xl md:text-5xl font-extrabold text-[#007722] tracking-tight mb-2 flex items-center justify-center gap-3 md:gap-4"
             >
               <span>ROAST MY DOUBAN</span>
             </h1>
             <p class="text-[#007722] text-sm tracking-[0.2em] font-bold">豆瓣标记精神状态分析</p>
-          </div>
+          </div> -->
 
           <form
             onsubmit={handleSubmit}
@@ -273,17 +273,42 @@
                   >
                     如若遇到请求长时间不返回的情况，可在下方填入您自己的 API Key，可能输出更丰富的结果哦。 您的 Key
                     仅保留在本地浏览器，通过安全连接直接请求。
+                    <div class="h-1"></div>
+                    <!-- 或者给
+                    <a
+                      href="https://github.com/roast-my/douban?tab=readme-ov-file#support-me"
+                      target="_blank"
+                      class="underline hover:text-yellow-600 font-bold">开发者打钱</a
+                    >，每个人给我打一毛钱我就能回本了，然后给大模型充值，让它继续为人民服务（ -->
                   </div>
 
                   <div class="space-y-3">
-            
                     <div class="flex items-center gap-3">
                       <a
                         href="https://platform.deepseek.com/api_keys"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="w-16 shrink-0 text-xs font-mono text-[#007722]/70 hover:text-[#007722] hover:underline text-right"
-                        >DeepSeek</a
+                        class="w-18 shrink-0 text-[11px] font-mono text-[#007722]/70 hover:text-[#007722] hover:underline flex items-center justify-end gap-1"
+                        >DeepSeek
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="10"
+                          height="10"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          ><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline
+                            points="15 3 21 3 21 9"
+                          ></polyline><line
+                            x1="10"
+                            y1="14"
+                            x2="21"
+                            y2="3"
+                          ></line></svg
+                        ></a
                       >
                       <input
                         type="password"
@@ -298,8 +323,27 @@
                         href="https://aistudio.google.com/app/apikey"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="w-16 shrink-0 text-xs font-mono text-[#007722]/70 hover:text-[#007722] hover:underline text-right"
-                        >Gemini</a
+                        class="w-18 shrink-0 text-[11px] font-mono text-[#007722]/70 hover:text-[#007722] hover:underline flex items-center justify-end gap-1"
+                        >Gemini
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="10"
+                          height="10"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          ><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline
+                            points="15 3 21 3 21 9"
+                          ></polyline><line
+                            x1="10"
+                            y1="14"
+                            x2="21"
+                            y2="3"
+                          ></line></svg
+                        ></a
                       >
                       <input
                         type="password"
@@ -314,8 +358,27 @@
                         href="https://dashscope.console.aliyun.com/apiKey"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="w-16 shrink-0 text-xs font-mono text-[#007722]/70 hover:text-[#007722] hover:underline text-right"
-                        >Qwen</a
+                        class="w-18 shrink-0 text-[11px] font-mono text-[#007722]/70 hover:text-[#007722] hover:underline flex items-center justify-end gap-1"
+                        >Qwen
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="10"
+                          height="10"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          ><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline
+                            points="15 3 21 3 21 9"
+                          ></polyline><line
+                            x1="10"
+                            y1="14"
+                            x2="21"
+                            y2="3"
+                          ></line></svg
+                        ></a
                       >
                       <input
                         type="password"
@@ -329,8 +392,27 @@
                         href="https://platform.openai.com/api-keys"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="w-16 shrink-0 text-xs font-mono text-[#007722]/70 hover:text-[#007722] hover:underline text-right"
-                        >ChatGPT</a
+                        class="w-18 shrink-0 text-[11px] font-mono text-[#007722]/70 hover:text-[#007722] hover:underline flex items-center justify-end gap-1"
+                        >ChatGPT
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="10"
+                          height="10"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          ><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline
+                            points="15 3 21 3 21 9"
+                          ></polyline><line
+                            x1="10"
+                            y1="14"
+                            x2="21"
+                            y2="3"
+                          ></line></svg
+                        ></a
                       >
                       <input
                         type="password"
@@ -460,9 +542,9 @@
               <div>
                 进度: {Math.min(roaster.scannedCount, roaster.totalItems)} / {roaster.totalItems}
               </div>
-              
+
               {#if roaster.status === 'analyzing'}
-                <button 
+                <button
                   type="button"
                   onclick={() => roaster.skip()}
                   class="text-[10px] font-bold py-1.5 px-3 bg-[#007722]/5 text-[#007722]/50 hover:text-[#007722] hover:bg-[#007722]/10 transition-colors cursor-pointer rounded-full"
@@ -476,13 +558,18 @@
       </div>
     {:else if roaster.status === 'success' && roaster.result}
       <div class="w-full max-w-3xl col-start-1 row-start-1 animate-in zoom-in-95 duration-500">
-        <RoastCard result={roaster.result} mode={roaster.mode} />
+        <RoastCard
+          result={roaster.result}
+          mode={roaster.mode}
+        />
       </div>
     {/if}
   </div>
 
   <div class="absolute bottom-4 left-0 w-full text-center select-none">
-    <p class="text-[11px] text-[#007722]/50 font-mono mx-6">
+    <p
+      class={`text-[11px] text-[#007722]/50 font-mono mx-6 ${roaster.mode === 'compliment' && roaster.status === 'success' ? 'text-yellow-600' : ''}`}
+    >
       Designed by <a
         target="_blank"
         rel="noopener noreferrer"

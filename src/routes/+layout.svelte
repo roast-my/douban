@@ -18,14 +18,14 @@
   <meta property="og:url" content="https://rmd.aeriszhu.com/" />
   <meta property="og:title" content="Roast My Douban | 豆瓣标记精神状态分析" />
   <meta property="og:description" content="输入豆瓣 ID，让 AI 深度侧写你的精神状态。" />
-  <meta property="og:image" content="https://rmd.aeriszhu.com/douban.webp" />
+  <meta property="og:image" content="https://rmd.aeriszhu.com/douban_new.webp" />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://rmd.aeriszhu.com/" />
   <meta property="twitter:title" content="Roast My Douban | 豆瓣标记精神状态分析" />
   <meta property="twitter:description" content="输入豆瓣 ID，让 AI 深度侧写你的精神状态。" />
-  <meta property="twitter:image" content="https://rmd.aeriszhu.com/douban.webp" />
+  <meta property="twitter:image" content="https://rmd.aeriszhu.com/douban_new.webp" />
 </svelte:head>
 
 {@render children()}
